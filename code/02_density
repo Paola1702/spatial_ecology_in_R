@@ -48,3 +48,10 @@ dev.off()
 
 cl <- colorRampPalette(c("green","red","blue"))
 plot(beidens, col=cl)
+#color website:
+https://htmlcolorcodes.com/color-chart/
+
+cln <- colorRampPalette(c("#4F39F6","#3BB8DB","#FDC745"))
+par(mfrow=c(2,1))
+plot(beidens, col=cl)
+plot(beidens, col=cln)
