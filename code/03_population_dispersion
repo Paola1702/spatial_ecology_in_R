@@ -1,0 +1,12 @@
+install.packages("sdm")
+install.packages("terra")
+
+library(sdm)
+library(terra)
+
+file <- system.file("external/species.shp",package="sdm")
+#in R the classes are related to the type of file 
+rana <- vect(file)
+rana
+plot(rana)
+rana$Occurence
