@@ -24,7 +24,7 @@ plot(bei.extra$elev)
 plot(bei.extra[[1]])
 plot(bei.extra[[2]])
 
-#assign to an easier name to read 
+#assign to an easier name to read and select only the elevetion
 el <- bei.extra[[1]]
 plot(el)
 
@@ -35,3 +35,16 @@ plot (beidens)
 #higher the elevation, lower will be the density of trees
 
 points(bei)
+#to make it look better add the dimension of the points
+points(bei, cex=.2)
+
+el <- bei.extra[[1]]
+#one object is the map the other is el 
+#how to plot the dmap beside el? use the function par to create a multiframe (one row and two columns)
+par(mfrow=c(1,2))
+
+#to close the graph:
+dev.off()
+
+cl <- colorRampPalette(c("green","red","blue"))
+plot(beidens, col=cl)
