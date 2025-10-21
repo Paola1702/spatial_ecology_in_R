@@ -1,0 +1,57 @@
+#code for estimating population density
+#we need a package
+# installing package 
+install.packages("spatstat")
+# library to open the package
+library (spatstat)
+bei
+plot(bei,pch=15)
+#built a density net
+# changing dimension - cex
+plot(bei, cex=.2)
+
+# changing the symbol - pch
+plot(bei, cex=.2, pch=19)
+
+# additional datasets
+bei.extra
+plot(bei.extra)
+
+#need a symbol to link object in R $
+plot(bei.extra$elev)
+
+#separation of the two graphs: double ]] because we are dealing with a map, so two-dimensional, raster data
+plot(bei.extra[[1]])
+plot(bei.extra[[2]])
+
+#assign to an easier name to read and select only the elevetion
+el <- bei.extra[[1]]
+plot(el)
+
+#lets use the density function, raster is coming from latin word that means aratro in italian. passing from points to vectors. 
+beidens <- density(bei)
+plot (beidens)
+
+#higher the elevation, lower will be the density of trees
+
+points(bei)
+#to make it look better add the dimension of the points
+points(bei, cex=.2)
+
+el <- bei.extra[[1]]
+#one object is the map the other is el 
+#how to plot the dmap beside el? use the function par to create a multiframe (one row and two columns)
+par(mfrow=c(1,2))
+
+#to close the graph:
+dev.off()
+
+cl <- colorRampPalette(c("green","red","blue"))
+plot(beidens, col=cl)
+#color website:
+https://htmlcolorcodes.com/color-chart/
+
+cln <- colorRampPalette(c("#4F39F6","#3BB8DB","#FDC745"))
+par(mfrow=c(2,1))
+plot(beidens, col=cl)
+plot(beidens, col=cln)
