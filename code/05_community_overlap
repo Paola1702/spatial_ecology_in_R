@@ -1,0 +1,54 @@
+# This code is analysing the temporal overlap between species
+
+# install.packages("overlap")
+
+library(overlap)
+#recall the suntool package
+#we are going to use ridgeline plots griges to make plots
+
+#park in indonesia:
+data(kerinci)
+
+head(kerinci)
+
+#calculate a new variable
+circulartime <- kerinci$Time * 2 * pi
+
+kerinci$circ <- kerinci$Time * 2 * pi
+
+#calculate the frequency of an animal 
+#comma to close the sequence
+tiger <- kerinci[kerinci$Sps=="tiger",]
+
+#we use the circular time data
+timetiger <- tiger$circ
+densityPlot(timetiger)
+
+#exercescise: repeat the graph for the macaque 
+macaque <- kerinci[kerinci$Sps=="macaque",]
+
+timemacaque <- macaque$circ
+densityPlot(timemacaque )
+
+#hom much time of the tiger is overlapping with the macaque, how it is the adaptation of the macaque to survive the tiger?
+dev.off()
+overlapPlot(timetiger, timemacaque)
+#much of the time macaque is trting to avoid the tiger
+
+#--------
+# Get the unique species names, select unique data
+species_list <- unique(kerinci$Sps)
+
+# Set up the plotting area with a grid (adjust n and m based on the number of species)
+par(mfrow = c(3, 3))  # Example: 3 rows and 3 columns (adjust as needed)
+
+# Loop through each species and create density plots,
+for (species in species_list) { #the graph parentesi is because we are deciding what to do 
+  # Subset data for the current species
+  species_data <- kerinci[kerinci$Sps == species, ]
+  
+  # Create a density plot for the 'circ' variable of the current species
+  plot(density(species_data$circ), 
+       main = paste("Density Plot of Circumference for", species), 
+       xlab = "Circumference")
+}
