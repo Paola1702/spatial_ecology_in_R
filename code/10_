@@ -1,0 +1,85 @@
+# Code to visualize remote sensing data
+
+# the data we are using this lesson are stored in this link - Zenodo set: https://zenodo.org/records/15645465
+# install.packages("imageRy")
+
+library(imageRy)
+library(terra)
+library(viridis)
+
+# Listing data inside imageRy
+im.list()
+# there is a satellite called sentinel that is covering the planet every 10 days: good date to deal with, we are going to use it 
+# in the satellite there are different sensor that look with differt wavelenght
+
+
+# importing the first band
+b2 <- im.import("sentinel.dolomites.b2.tif")
+plot(b2)
+#with the plot we are looking at the reflectance (slides su virtuale)
+
+#changing the color with viridis package (call library)
+plot(b2, col=magma(100))
+
+# import and plot green band 3 with the legend mako from viridis  
+#band 3 it is in 560nm wave length
+b3 <- im.import("sentinel.dolomites.b3.tif")
+plot(b3)
+plot(b3, col=mako(100))
+
+
+cl <- colorRampPalette(c("black","grey","white"))(100)
+plot(b3, col=cl)
+plot(b2, col=cl)
+
+# multiframe two plot together
+par(mfrow=c(1,2))
+# or doing it by creating our own function
+im.multiframe(1,2)
+plot(b2, col=cl)
+plot(b3, col=cl)
+
+# or doing it by creating our own function: the multiframe from the CRAN is not properly working, so use the GitHub version:
+multiframe <- function(x,y){
+   par(mfrow=c(x,y))
+   }
+
+dev.off()
+plot(b2,b3)
+
+#excercise:
+multiframe (1,3)
+plot(b2, col=cl) 
+plot(b3, col=cl) 
+plot(b2, b3) 
+
+dev.off()
+# Exercise: import band 4 (655 nm wavelenght)
+b4 <- im.import("sentinel.dolomites.b4.tif")
+plot(b4)
+plot(b4, col=cl)
+
+
+# import band 8
+b8 <- im.import("sentinel.dolomites.b8.tif")
+plot(b8)
+
+im.multiframe(1,2)
+plot(b4)
+plot(b8)
+
+#using multiframe function to plot all the four bands:
+#b2 b3
+#b4 b8
+multiframe(2,2)
+plot (b2, col=inferno(100))
+plot (b3, col=inferno(100))
+plot (b4, col=inferno(100))
+plot (b8, col=inferno(100))
+
+#excercise: plot the following relationships: b2,b3 and b2,b8
+multiframe(1,2)
+plot (b2,b3, xlab="band2-blue", ylab="band3-green", main="relationship b2 vs. b3")
+
+plot (b2,b8, xlab="band2-blue", ylab="band8-IFred",main="relationship b2 vs. b8")
+#the correlation is not direct as in the previous relationship
