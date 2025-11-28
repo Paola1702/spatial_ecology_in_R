@@ -83,3 +83,37 @@ plot (b2,b3, xlab="band2-blue", ylab="band3-green", main="relationship b2 vs. b3
 
 plot (b2,b8, xlab="band2-blue", ylab="band8-IFred",main="relationship b2 vs. b8")
 #the correlation is not direct as in the previous relationship
+
+#friday lesson
+#creating colored images
+sent<- c( b2,b3,b4,b8)
+
+#layer 1= original from sentinel b2= blue
+#layer 2= b3= green
+#layer 3= original from sentinel b4= red
+#layer 4= original from sentinel b8= NIR
+
+#spat raster is the name of the class of sent 
+#natural color image creating using the RGB scheme:
+dev.off()
+im.plotRGB(sent,r=3,g=2,b=1, title="natural color")
+
+#lets use the IR to identify the vegetation: falso color image
+im.plotRGB(sent,r=4,g=3,b=2, title="false color")
+#we put the IR over the red layer so everithing is red, differently based on the vegetation and water on the image
+
+#put it on top of the green component
+im.plotRGB(sent,r=3,g=4,b=1, title="false color")
+
+#put it on top of the blue component
+im.plotRGB(sent,r=3,g=2,b=4, title="false color")
+
+multiframe(2,2)
+
+b2 <- im.import("sentinel.dolomites.b2.tif")
+b3 <- im.import("sentinel.dolomites.b3.tif")
+b4 <- im.import("sentinel.dolomites.b4.tif")
+b8 <- im.import("sentinel.dolomites.b8.tif")
+
+#this it ois not working with the CRAN version, thwe professor will check the problem
+
