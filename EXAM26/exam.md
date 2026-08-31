@@ -74,14 +74,18 @@ B08_2019_crop <- mask(crop(B08_2019, paneveggio_utm), paneveggio_utm)
 SCL_2019_crop <- mask(crop(SCL_2019, paneveggio_utm), paneveggio_utm)
 ```
 ## SCL crop
-The pixel with the snow and the clouds will be erased to precisly calculate the vegetation indices
+The pixel with the snow and the clouds will be erased to precisly calculate the vegetation indices. The codes are from the [Copernicus website](https://sentiwiki.copernicus.eu/web/s2-processing)
+
+* 0- WITHOUT DATA
 * 1-SATURATED_DEFEC
 * 3-CLOUD_SHADOW
 * 7-CLOUD_LOW_PROBA / UNCLASSIFIED
 * 8-CLOUD_MEDIUM_PROBA
 * 9-CLOUD_HIGH_PROBA
 * 10-THIN_CIRRUS
+* 11-SNOW or ICE
 
+```
 mask_scl <- function(x, scl) {
 #the SCL band is at 20m so an adaptation to 10m is needed
   scl_10m <- resample(scl, x, method = "near")
@@ -103,6 +107,7 @@ B02_2019_crop <- mask_scl(B02_2019_crop, SCL_2019_crop)
 B03_2019_crop <- mask_scl(B03_2019_crop, SCL_2019_crop)
 B04_2019_crop <- mask_scl(B04_2019_crop, SCL_2019_crop)
 B08_2019_crop <- mask_scl(B08_2019_crop, SCL_2019_crop)
+```
 
 # ---------------------------------------------------------------------------
 # 4. RGB visualization 
