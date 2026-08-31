@@ -1,5 +1,5 @@
-# IMPATTO DELLA TEMPESTA VAIA (30 OTTOBRE 2018) SULLA VEGETAZIONE DEL PARCO NATURALE PANEVEGGIO - PALE DI SAN MARTINO
-## Analisi multitemporale con immagini Sentinel-2 (due date: pre-Vaia,post-schianto)
+# IMPACT OF THE VAIA STORM (30 OCTOBER 2018) ON THE VEGETATION OF THE PARCO NATURALE PANEVEGGIO - PALE DI SAN MARTINO
+## Analysis of the Sentinel-2 images (pre-Vaia 2018, post-vaia same season 2019)
 
 ## LIBRARY AND WORKING DIRECTORY
 ```
@@ -12,7 +12,6 @@ setwd("C:/Users/17020/Documents/UNI Magistrale/spatial_ecology")
 ```
 
 ## Selection of the Parco Paneveggio area from the shapefile
-
 ```
 parchi_tn <- vect("C:/Users/17020/Documents/UNI Magistrale/spatial_ecology/z307_p_pup.shp")   #directory of the shapefile
 names(parchi_tn) # check on the different fields in the file
@@ -21,6 +20,7 @@ paneveggio <- parchi_tn[grepl("PANEVEGGIO", parchi_tn$descr, ignore.case = TRUE)
 
 plot(paneveggio, main = "Parco Naturale Paneveggio - Pale di San Martino") #plot of the area boundaries
 ```
+
 ## Upload of the raster files of the bands needed from the pre Vaia Sentinel-2 pictures
 ```
 B02_2018 <- rast("C:/Users/17020/Documents/UNI Magistrale/spatial_ecology/pre_vaia_2018/T32TQS_20180827T101021_B02_10m.jp2")
@@ -29,6 +29,7 @@ B04_2018 <- rast("C:/Users/17020/Documents/UNI Magistrale/spatial_ecology/pre_va
 B08_2018 <- rast("C:/Users/17020/Documents/UNI Magistrale/spatial_ecology/pre_vaia_2018/T32TQS_20180827T101021_B08_10m.jp2")
 SCL_2018 <- rast("C:/Users/17020/Documents/UNI Magistrale/spatial_ecology/pre_vaia_2018/T32TQS_20180827T101021_SCL_20m.jp2")
 ```
+
 ## Upload of the raster files of the bands needed from the post Vaia Sentinel-2 pictures
 ```
 B02_2019 <- rast("C:/Users/17020/Documents/UNI Magistrale/spatial_ecology/vaia_2019/T32TQS_20190916T101029_B02_10m.jp2")
@@ -37,6 +38,7 @@ B04_2019 <- rast("C:/Users/17020/Documents/UNI Magistrale/spatial_ecology/vaia_2
 B08_2019 <- rast("C:/Users/17020/Documents/UNI Magistrale/spatial_ecology/vaia_2019/T32TQS_20190916T101029_B08_10m.jp2")
 SCL_2019 <- rast("C:/Users/17020/Documents/UNI Magistrale/spatial_ecology/vaia_2019/T32TQS_20190916T101029_SCL_20m.jp2")
 ```
+
 ## plot the maps from 2018 satellites pictures 
 ```
 par(mfrow = c(2, 3)) 
@@ -74,7 +76,7 @@ B08_2019_crop <- mask(crop(B08_2019, paneveggio_utm), paneveggio_utm)
 SCL_2019_crop <- mask(crop(SCL_2019, paneveggio_utm), paneveggio_utm)
 ```
 ## SCL crop
-The pixel with the snow and the clouds will be erased to precisly calculate the vegetation indices. The codes are from the [Copernicus website](https://sentiwiki.copernicus.eu/web/s2-processing)
+The pixel without data and with snow and clouds will be erased to precisly calculate the vegetation indices. The codes are from the [Copernicus website](https://sentiwiki.copernicus.eu/web/s2-processing)
 
 * 0- WITHOUT DATA
 * 1-SATURATED_DEFEC
@@ -109,9 +111,8 @@ B04_2019_crop <- mask_scl(B04_2019_crop, SCL_2019_crop)
 B08_2019_crop <- mask_scl(B08_2019_crop, SCL_2019_crop)
 ```
 
-# ---------------------------------------------------------------------------
-# 4. RGB visualization 
-# ---------------------------------------------------------------------------
+## RGB visualization of the cropped images 
+```
 par(mfrow = c(1, 2))
 plotRGB(c(B04_2018_crop, B03_2018_crop, B02_2018_crop), 
         r = 1, g = 2, b = 3,
@@ -119,22 +120,20 @@ plotRGB(c(B04_2018_crop, B03_2018_crop, B02_2018_crop),
         main = "Sentinel-2 RGB - Pre-Vaia (27/08/2018)",
         axes=TRUE)
 
-
 plotRGB(c(B04_2019_crop, B03_2019_crop, B02_2019_crop), 
         r = 1, g = 2, b = 3,
         stretch = "lin",
         main = "Sentinel-2 RGB - Post-Vaia (16/09/2019)",
         axes=TRUE)
+```
 
-# ---------------------------------------------------------------------------
-# Calcolo DVI 
-# ---------------------------------------------------------------------------
+# Calcolo DVI (Difference Vegetation Index) and dDVI
+This index is calculated with the difference between the reflectance values of the **near-infrared(NIR)** and **red spectral** bands. It is a simple index and it tells us about the density and health of the vegetation because when the plants are healthy they reflect more NIR light while absorbing red light.
+```
+dvi_2018 = B08_2018_crop - B04_2018_crop # Calculation DVI pre-Vaia
+dvi_2019 = B08_2019_crop - B04_2019_crop # Calculation DVI post-Vaia
 
-dvi_2018 = B08_2018_crop - B04_2018_crop # Calcolo DVI pre-vaia
-dvi_2019 = B08_2019_crop - B04_2019_crop # Calcolo DVI post-vaia
-
-
-# Pixel validi in entrambe le date
+# Pixel valid in both the dates
 validi <- !is.na(dvi_2018) & !is.na(dvi_2019)
 dDVI <- ifel(
   validi,
@@ -142,6 +141,7 @@ dDVI <- ifel(
   NA
 )
 plot(dDVI)
+```
 
 # 1. Controllo distribuzione
 #quantile(dDVI, probs = seq(0, 1, 0.1), na.rm = TRUE)
