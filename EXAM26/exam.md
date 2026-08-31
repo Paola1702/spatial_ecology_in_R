@@ -153,13 +153,19 @@ dDVI_real <- dDVI / 10000
 plot(dDVI_real,col=viridis::viridis(100), main="ΔDVI")
 ```
 ![deltaDVI](https://github.com/user-attachments/assets/cbaa81d7-2196-433c-ba30-f3847021429c)
-
+```
 hist(
   x,
   breaks = 100,
-  main = "Distribuzione di ΔDVI",
-  col = "palegreen"
+  main = "Distribuzione di ΔDVI (2018-2019)",
+  col = "palegreen",
+  xlab=("ΔDVI")
 )
+
+abline(v = 0, col = "darkgreen", lwd = 1.5)
+```
+<img width="300" height="161" alt="dDVI_hist_Rplot" src="https://github.com/user-attachments/assets/7e49af8c-fa79-4690-8643-4a3f2cbb3aad" />
+
 # 1. Controllo distribuzione
 #quantile(dDVI, probs = seq(0, 1, 0.1), na.rm = TRUE)
 
