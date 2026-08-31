@@ -164,7 +164,8 @@ hist(
 
 abline(v = 0, col = "darkgreen", lwd = 1.5)
 ```
-<img width="300" height="161" alt="dDVI_hist_Rplot" src="https://github.com/user-attachments/assets/7e49af8c-fa79-4690-8643-4a3f2cbb3aad" />
+<img width="611" height="330" alt="dDVI_hist_Rplot" src="https://github.com/user-attachments/assets/77f7031b-9f67-4c84-8171-0a596eac827b" />
+
 
 # 1. Controllo distribuzione
 #quantile(dDVI, probs = seq(0, 1, 0.1), na.rm = TRUE)
