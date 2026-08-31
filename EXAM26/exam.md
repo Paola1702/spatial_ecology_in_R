@@ -11,29 +11,32 @@ library(ggplot2) #graphs
 setwd("C:/Users/17020/Documents/UNI Magistrale/spatial_ecology")
 ```
 
-# ---------------------------------------------------------------------------
-# 2. Selection of the Parco Paneveggio area from the shapefile
-# ---------------------------------------------------------------------------
+## Selection of the Parco Paneveggio area from the shapefile
+
+```
 parchi_tn <- vect("C:/Users/17020/Documents/UNI Magistrale/spatial_ecology/z307_p_pup.shp")   #directory of the shapefile
-names(parchi_tn)                                        # check on the different fields in the file
+names(parchi_tn) # check on the different fields in the file
 head(as.data.frame(parchi_tn))
 paneveggio <- parchi_tn[grepl("PANEVEGGIO", parchi_tn$descr, ignore.case = TRUE), ] #recall of the area of the Paneveggio area
 
 plot(paneveggio, main = "Parco Naturale Paneveggio - Pale di San Martino") #plot of the area boundaries
-
-#upload of the bands we need from the pre Vaia 
+```
+##upload of the raster files of the bands needed from the pre Vaia Sentinel-2 pictures
+```
 B02_2018 <- rast("C:/Users/17020/Documents/UNI Magistrale/spatial_ecology/pre_vaia_2018/T32TQS_20180827T101021_B02_10m.jp2")
 B03_2018 <- rast("C:/Users/17020/Documents/UNI Magistrale/spatial_ecology/pre_vaia_2018/T32TQS_20180827T101021_B03_10m.jp2")
 B04_2018 <- rast("C:/Users/17020/Documents/UNI Magistrale/spatial_ecology/pre_vaia_2018/T32TQS_20180827T101021_B04_10m.jp2")
 B08_2018 <- rast("C:/Users/17020/Documents/UNI Magistrale/spatial_ecology/pre_vaia_2018/T32TQS_20180827T101021_B08_10m.jp2")
 SCL_2018 <- rast("C:/Users/17020/Documents/UNI Magistrale/spatial_ecology/pre_vaia_2018/T32TQS_20180827T101021_SCL_20m.jp2")
-
+```
+##upload of the raster files of the bands needed from the post Vaia Sentinel-2 pictures
+```
 B02_2019 <- rast("C:/Users/17020/Documents/UNI Magistrale/spatial_ecology/vaia_2019/T32TQS_20190916T101029_B02_10m.jp2")
 B03_2019 <- rast("C:/Users/17020/Documents/UNI Magistrale/spatial_ecology/vaia_2019/T32TQS_20190916T101029_B03_10m.jp2")
 B04_2019 <- rast("C:/Users/17020/Documents/UNI Magistrale/spatial_ecology/vaia_2019/T32TQS_20190916T101029_B04_10m.jp2")
 B08_2019 <- rast("C:/Users/17020/Documents/UNI Magistrale/spatial_ecology/vaia_2019/T32TQS_20190916T101029_B08_10m.jp2")
 SCL_2019 <- rast("C:/Users/17020/Documents/UNI Magistrale/spatial_ecology/vaia_2019/T32TQS_20190916T101029_SCL_20m.jp2")
-
+```
 
 par(mfrow = c(2, 3)) #to 
 plot(B02_2018, main = "B2")
