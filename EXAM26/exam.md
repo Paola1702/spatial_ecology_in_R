@@ -60,7 +60,7 @@ plot(B04_2019, main = "B4")
 plot(B08_2019, main = "B8")
 plot(SCL_2019, main = "SCL")
 ```
-![bands2019]("https://github.com/user-attachments/assets/ee4623ed-d385-4d3f-bb2b-b604816b6230")
+![bands2019](https://github.com/user-attachments/assets/ee4623ed-d385-4d3f-bb2b-b604816b6230")
 
 ## crop only the park area
 ```
