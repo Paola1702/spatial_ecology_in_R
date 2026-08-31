@@ -126,6 +126,7 @@ plotRGB(c(B04_2019_crop, B03_2019_crop, B02_2019_crop),
         main = "Sentinel-2 RGB - Post-Vaia (16/09/2019)",
         axes=TRUE)
 ```
+<img width="557" height="326" alt="RGBVAIA_Rplot" src="https://github.com/user-attachments/assets/63bc74bb-2619-4c7e-bc76-876f0b581fae" />
 
 # Calcolo DVI (Difference Vegetation Index) and dDVI
 This index is calculated with the difference between the reflectance values of the **near-infrared(NIR)** and **red spectral** bands. It is a simple index and it tells us about the density and health of the vegetation because when the plants are healthy they reflect more NIR light while absorbing red light.
