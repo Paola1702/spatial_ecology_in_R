@@ -115,7 +115,12 @@ B08_2019_crop <- mask_scl(B08_2019_crop, SCL_2019_crop)
 
 ## RGB visualization of the cropped images 
 ```
-par(mfrow = c(1, 2))
+layout(
+  matrix(c(1, 0, 2), nrow = 1),
+  widths = c(1, 0.20, 1)
+)
+par(cex.main = 0.8)
+
 plotRGB(c(B04_2018_crop, B03_2018_crop, B02_2018_crop), 
         r = 1, g = 2, b = 3,
         stretch = "lin",
@@ -127,8 +132,9 @@ plotRGB(c(B04_2019_crop, B03_2019_crop, B02_2019_crop),
         stretch = "lin",
         main = "Sentinel-2 RGB - Post-Vaia (16/09/2019)",
         axes=TRUE)
+dev.off()
 ```
-<img width="557" height="326" alt="RGBVAIA_Rplot" src="https://github.com/user-attachments/assets/63bc74bb-2619-4c7e-bc76-876f0b581fae" />
+![RGB](https://github.com/user-attachments/assets/63bc74bb-2619-4c7e-bc76-876f0b581fae)
 
 # Calcolo DVI (Difference Vegetation Index) and dDVI
 This index is calculated with the difference between the reflectance values of the **near-infrared(NIR)** and **red spectral** bands. It is a simple index and it tells us about the density and health of the vegetation because when the plants are healthy they reflect more NIR light while absorbing red light.
@@ -143,9 +149,17 @@ dDVI <- ifel(
   dvi_2019 - dvi_2018,
   NA
 )
-plot(dDVI)
+dDVI_real <- dDVI / 10000
+plot(dDVI_real,col=viridis::viridis(100), main="ΔDVI")
 ```
+!(https://github.com/user-attachments/assets/cbaa81d7-2196-433c-ba30-f3847021429c)
 
+hist(
+  x,
+  breaks = 100,
+  main = "Distribuzione di ΔDVI",
+  col = "palegreen"
+)
 # 1. Controllo distribuzione
 #quantile(dDVI, probs = seq(0, 1, 0.1), na.rm = TRUE)
 
