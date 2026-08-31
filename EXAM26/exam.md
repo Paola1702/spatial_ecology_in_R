@@ -20,6 +20,7 @@ paneveggio <- parchi_tn[grepl("PANEVEGGIO", parchi_tn$descr, ignore.case = TRUE)
 
 plot(paneveggio, main = "Parco Naturale Paneveggio - Pale di San Martino") #plot of the area boundaries
 ```
+<img width="458" height="330" alt="paneveggioboundaries_Rplot" src="https://github.com/user-attachments/assets/bf639fa9-7326-4cdf-8df7-b69228ca1a12" />
 
 ## Upload of the raster files of the bands needed from the pre Vaia Sentinel-2 pictures
 ```
@@ -59,6 +60,7 @@ plot(B04_2019, main = "B4")
 plot(B08_2019, main = "B8")
 plot(SCL_2019, main = "SCL")
 ```
+<img width="458" height="330" alt="2019_Rplot" src="https://github.com/user-attachments/assets/00fc1aad-5d06-4f51-9ac4-5104df33515b" />
 
 ## crop only the park area
 ```
