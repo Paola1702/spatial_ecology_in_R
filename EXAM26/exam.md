@@ -2,18 +2,14 @@
 ## Analisi multitemporale con immagini Sentinel-2 (due date: pre-Vaia,post-schianto)
 
 ## LIBRARY AND WORKING DIRECTORY
-
-# terra    -> gestione dati raster/vettoriali (lettura .jp2, crop, mask, ecc.)
-# viridis  -> palette di colori percettivamente uniformi per le mappe
-# imageRy  -> funzioni rapide di visualizzazione usate a lezione (im.multiframe...)
-# ggplot2  -> grafici a barre per il confronto delle percentuali per classe
-
-library(terra)
-library(viridis)
+```
+library(terra) #for spatial data analysis with vector and raster data
+library(viridis) 
 library(imageRy)
-library(ggplot2)
+library(ggplot2) #graphs 
 
 setwd("C:/Users/17020/Documents/UNI Magistrale/spatial_ecology")
+```
 
 # ---------------------------------------------------------------------------
 # 2. Selection of the Parco Paneveggio area from the shapefile
