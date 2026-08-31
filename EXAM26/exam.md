@@ -152,7 +152,7 @@ dDVI <- ifel(
 dDVI_real <- dDVI / 10000
 plot(dDVI_real,col=viridis::viridis(100), main="ΔDVI")
 ```
-!(https://github.com/user-attachments/assets/cbaa81d7-2196-433c-ba30-f3847021429c)
+![deltaDVI](https://github.com/user-attachments/assets/cbaa81d7-2196-433c-ba30-f3847021429c)
 
 hist(
   x,
