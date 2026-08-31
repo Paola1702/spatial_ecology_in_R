@@ -21,7 +21,7 @@ paneveggio <- parchi_tn[grepl("PANEVEGGIO", parchi_tn$descr, ignore.case = TRUE)
 
 plot(paneveggio, main = "Parco Naturale Paneveggio - Pale di San Martino") #plot of the area boundaries
 ```
-##upload of the raster files of the bands needed from the pre Vaia Sentinel-2 pictures
+## Upload of the raster files of the bands needed from the pre Vaia Sentinel-2 pictures
 ```
 B02_2018 <- rast("C:/Users/17020/Documents/UNI Magistrale/spatial_ecology/pre_vaia_2018/T32TQS_20180827T101021_B02_10m.jp2")
 B03_2018 <- rast("C:/Users/17020/Documents/UNI Magistrale/spatial_ecology/pre_vaia_2018/T32TQS_20180827T101021_B03_10m.jp2")
@@ -29,7 +29,7 @@ B04_2018 <- rast("C:/Users/17020/Documents/UNI Magistrale/spatial_ecology/pre_va
 B08_2018 <- rast("C:/Users/17020/Documents/UNI Magistrale/spatial_ecology/pre_vaia_2018/T32TQS_20180827T101021_B08_10m.jp2")
 SCL_2018 <- rast("C:/Users/17020/Documents/UNI Magistrale/spatial_ecology/pre_vaia_2018/T32TQS_20180827T101021_SCL_20m.jp2")
 ```
-##upload of the raster files of the bands needed from the post Vaia Sentinel-2 pictures
+## Upload of the raster files of the bands needed from the post Vaia Sentinel-2 pictures
 ```
 B02_2019 <- rast("C:/Users/17020/Documents/UNI Magistrale/spatial_ecology/vaia_2019/T32TQS_20190916T101029_B02_10m.jp2")
 B03_2019 <- rast("C:/Users/17020/Documents/UNI Magistrale/spatial_ecology/vaia_2019/T32TQS_20190916T101029_B03_10m.jp2")
@@ -37,24 +37,29 @@ B04_2019 <- rast("C:/Users/17020/Documents/UNI Magistrale/spatial_ecology/vaia_2
 B08_2019 <- rast("C:/Users/17020/Documents/UNI Magistrale/spatial_ecology/vaia_2019/T32TQS_20190916T101029_B08_10m.jp2")
 SCL_2019 <- rast("C:/Users/17020/Documents/UNI Magistrale/spatial_ecology/vaia_2019/T32TQS_20190916T101029_SCL_20m.jp2")
 ```
-
-par(mfrow = c(2, 3)) #to 
+## plot the maps from 2018 satellites pictures 
+```
+par(mfrow = c(2, 3)) 
 plot(B02_2018, main = "B2")
 plot(B03_2018, main = "B3")
 plot(B04_2018, main = "B4")
 plot(B08_2018, main = "B8")
 plot(SCL_2018, main = "SCL")
 dev.off()
+```
 ![bands2018](https://github.com/user-attachments/assets/1dcd3ea7-5301-47e3-98f5-4a854b11122e)
-
+## plot the maps from 2019 satellites pictures 
+```
 par(mfrow = c(2, 3))
 plot(B02_2019, main = "B2")
 plot(B03_2019, main = "B3")
 plot(B04_2019, main = "B4")
 plot(B08_2019, main = "B8")
 plot(SCL_2019, main = "SCL")
+```
 
-#crop only the park zone
+## crop only the park area
+```
 paneveggio_utm <- project(paneveggio, crs(B02_2018))
 B02_2018_crop <- mask(crop(B02_2018, paneveggio_utm), paneveggio_utm)
 B03_2018_crop <- mask(crop(B03_2018, paneveggio_utm), paneveggio_utm)
@@ -67,23 +72,25 @@ B03_2019_crop <- mask(crop(B03_2019, paneveggio_utm), paneveggio_utm)
 B04_2019_crop <- mask(crop(B04_2019, paneveggio_utm), paneveggio_utm)
 B08_2019_crop <- mask(crop(B08_2019, paneveggio_utm), paneveggio_utm)
 SCL_2019_crop <- mask(crop(SCL_2019, paneveggio_utm), paneveggio_utm)
+```
+## SCL crop
+The pixel with the snow and the clouds will be erased to precisly calculate the vegetation indices
+* 1-SATURATED_DEFEC
+* 3-CLOUD_SHADOW
+* 7-CLOUD_LOW_PROBA / UNCLASSIFIED
+* 8-CLOUD_MEDIUM_PROBA
+* 9-CLOUD_HIGH_PROBA
+* 10-THIN_CIRRUS
 
-# resample(): la banda SCL nasce a 20 m, le bande B02/B03/B04/B08 sono a
-# 10 m. Per poterle sovrapporre pixel-per-pixel dobbiamo riportare la SCL
-# alla stessa griglia/risoluzione delle altre bande. method="near" perche'
-# la SCL contiene codici di classe (dati categoriali): un metodo di
-# interpolazione continuo (es. bilineare) non avrebbe senso qui, creerebbe
-# codici di classe inventati e intermedi che non esistono.
 mask_scl <- function(x, scl) {
-  
+#the SCL band is at 20m so an adaptation to 10m is needed
   scl_10m <- resample(scl, x, method = "near")
+
+#TRUE when the pixel is not in the codes written
+codici_da_escludere <- c(0, 1, 3, 8, 9, 10, 11)
+valido <- !(scl_10m %in% codici_da_escludere)
   
-  # costruiamo la maschera booleana: TRUE dove il pixel NON e' tra i codici
-  # da escludere (quindi e' un pixel valido da mantenere)
-  codici_da_escludere <- c(0, 1, 3, 8, 9, 10, 11)
-  valido <- !(scl_10m %in% codici_da_escludere)
-  
-  # mask() sostituisce con NA tutti i pixel di x dove "valido" e' FALSO
+  #all the non valid pixel will be substituted with NA
   mask(x, valido, maskvalues = FALSE)
 }
 #apply mask SCL to each layer 2018
