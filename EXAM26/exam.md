@@ -235,24 +235,60 @@ hist(
 )
 
 ```
-class_matrix <- matrix(c(-Inf, 0.2, 1, 
-                         0.2, 0.4, 2, 
-                         0.4, Inf, 3), 
-                       ncol = 3, byrow = TRUE)
-class_matrix
-#Se NDVI < 0.2 allora si associa una classe di tipo 1 (Suolo nudo)
-#Se 0.2 ≤ NDVI < 0.4 allora si associa una classe di tipo 2 (Vegetazione media)
-#Se NDVI ≥ 0.4 allora si associa una classe di tipo 3 (Vegetazione sana)  
+# dNDVI vegetation cover classification based on literature 
+```
+class_matrix <- matrix(c(
+  -Inf, 0.2, 1,
+  0.2, 0.4, 2,
+  0.4, 0.6, 3,
+  0.6, 0.8, 4,
+  0.8, Inf, 5
+), ncol = 3, byrow = TRUE)
 
-ndvi_2018_cl <- classify(ndvi_2018, class_matrix)  
-ndvi_2019_cl <- classify(ndvi_2019, class_matrix)  
-#Verifica visuale   
-plot(ndvi_2018_cl, col = c("orange", "yellow", "darkgreen"), main = "NDVI class. 2018")  
-plot(ndvi_2019_cl, col = c("orange", "yellow", "darkgreen"), main = "NDVI class. 2019")  
-#Frequenze
+class_matrix
+
+#NDVI < 0.2      = Very low vegetation cover
+#0.2 ≤ NDVI < 0.4 = Low vegetation cover
+#0.4 ≤ NDVI < 0.6 = Moderate vegetation cover
+#0.6 ≤ NDVI < 0.8 = High vegetation cover
+#NDVI ≥ 0.8       = Very high vegetation cover
+ndvi_2018_cl <- classify(ndvi_2018, class_matrix)
+ndvi_2019_cl <- classify(ndvi_2019, class_matrix)
+
+par(mfrow = c(1, 2))
+
+col_ndvi <- c(
+  "orange",
+  "gold",
+  "yellowgreen",
+  "green",
+  "darkgreen"
+)
+
+plot(
+  ndvi_2018_cl,
+  col = col_ndvi,
+  main = "NDVI Classification - 2018"
+)
+
+plot(
+  ndvi_2019_cl,
+  col = c(
+    "orange",
+    "gold",
+    "yellowgreen",
+    "green"), #color palette changed to have a   consistent classification
+  main = "NDVI Classification - 2019"
+)
+
+```
+<img width="536" height="330" alt="NDVI_classification_Rplot" src="https://github.com/user-attachments/assets/eeeb1957-3d22-4edc-b9ce-e7168797b430" />
+
+# Pixels frequences and percentages calculation
+```
 freq_2018 <- freq(ndvi_2018_cl)
 freq_2019 <- freq(ndvi_2019_cl)
-#Percentuali
+#%
 perc_2018 <- freq_2018$count * 100 / sum(freq_2018$count)
 perc_2019 <- freq_2019$count * 100 / sum(freq_2019$count)
 #Tabella
@@ -262,13 +298,9 @@ tab <- data.frame(
   a2019 = round(perc_2019, 2)
 )
 print(tab)
+```
 
-# ---------------------------------------------------------------------------
-# CLASSIFICAZIONE DEL dNDVI IN CLASSI DI CAMBIAMENTO
-#   1 = Perdita di vegetazione  (dNDVI < -0.2)
-#   2 = Stabile                 (-0.2 <= dNDVI < 0.2)
-#   3 = Guadagno di vegetazione (dNDVI >= 0.2)
-# ---------------------------------------------------------------------------
+
 class_dNDVI <- matrix(c(-Inf, -0.2, 1,
                         -0.2,  0.2, 2,
                         0.2,  Inf, 3),
@@ -318,3 +350,5 @@ ggplot(tab_long, aes(x = classi, y = percentuale, fill = anno)) +
   labs(title = "Classes NDVI - Parco Paneveggio (pre vs post Vaia)",
        y = "% area", x = NULL, fill = "Anno") +
   theme_minimal()
+# Bibliography 
+Wang B, Li H, Xia W, Wang J, Cai C and Chen J (2026) Response of NDVI spatiotemporal variation to meteorological factors in arid areas. Front. Environ. Sci. 14:1856508. doi: 10.3389/fenvs.2026.1856508
