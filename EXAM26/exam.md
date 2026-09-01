@@ -211,14 +211,12 @@ plot(dNDVI,
   col=viridis::inferno(100),
 )
 ```
-<img width="567" height="330" alt="deltaNDVIRplot" src="https://github.com/user-attachments/assets/601df027-db5f-443e-87be-44eb4948109a" />
+![NDVIplots](https://github.com/user-attachments/assets/601df027-db5f-443e-87be-44eb4948109a)
 
 
-# ============================================================
-# 14. ISTOGRAMMI NDVI
-# ============================================================
+# ISTOGRAMMI NDVI
 
-# INVARIATO
+```
 breaks_ndvi_h <- seq(-1, 1, length.out = 21)
 par(mfrow = c(1, 2))
 
@@ -236,27 +234,28 @@ hist(
   col = "blue"
 )
 
+```
 class_matrix <- matrix(c(-Inf, 0.2, 1, 
                          0.2, 0.4, 2, 
                          0.4, Inf, 3), 
                        ncol = 3, byrow = TRUE)
 class_matrix
-# Se NDVI < 0.2 allora si associa una classe di tipo 1 (Suolo nudo)
-# Se 0.2 ≤ NDVI < 0.4 allora si associa una classe di tipo 2 (Vegetazione media)
-# Se NDVI ≥ 0.4 allora si associa una classe di tipo 3 (Vegetazione sana)  
+#Se NDVI < 0.2 allora si associa una classe di tipo 1 (Suolo nudo)
+#Se 0.2 ≤ NDVI < 0.4 allora si associa una classe di tipo 2 (Vegetazione media)
+#Se NDVI ≥ 0.4 allora si associa una classe di tipo 3 (Vegetazione sana)  
 
 ndvi_2018_cl <- classify(ndvi_2018, class_matrix)  
 ndvi_2019_cl <- classify(ndvi_2019, class_matrix)  
-# Verifica visuale   
+#Verifica visuale   
 plot(ndvi_2018_cl, col = c("orange", "yellow", "darkgreen"), main = "NDVI class. 2018")  
 plot(ndvi_2019_cl, col = c("orange", "yellow", "darkgreen"), main = "NDVI class. 2019")  
-# Frequenze
+#Frequenze
 freq_2018 <- freq(ndvi_2018_cl)
 freq_2019 <- freq(ndvi_2019_cl)
-# Percentuali
+#Percentuali
 perc_2018 <- freq_2018$count * 100 / sum(freq_2018$count)
 perc_2019 <- freq_2019$count * 100 / sum(freq_2019$count)
-# Tabella
+#Tabella
 tab <- data.frame(
   classi = c("Suolo nudo", "Vegetazione media", "Vegetazione sana"),
   a2018 = round(perc_2018, 2),
