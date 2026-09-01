@@ -235,23 +235,26 @@ hist(
 )
 
 ```
+<img width="580" height="330" alt="NDVI_hist_Rplot" src="https://github.com/user-attachments/assets/ade26475-a4e1-4f71-9c2c-1262de5352f5" />
+
 # dNDVI vegetation cover classification based on literature 
+* NDVI < 0.2      = Very low vegetation cover
+* 0.2 ≤ NDVI < 0.4 = Low vegetation cover
+* 0.4 ≤ NDVI < 0.6 = Moderate vegetation cover
+* 0.6 ≤ NDVI < 0.8 = High vegetation cover
+* NDVI ≥ 0.8       = Very high vegetation cover
+> Considering that in the 2019 there are no pixel in the 5 class and in the 2018 image there are only 2 I have decided to not consider it to avoid complication in the calculations and in the graphs representation. 
 ```
+# NDVI classification
 class_matrix <- matrix(c(
   -Inf, 0.2, 1,
   0.2, 0.4, 2,
   0.4, 0.6, 3,
-  0.6, 0.8, 4,
-  0.8, Inf, 5
+  0.6, 0.8, 4
 ), ncol = 3, byrow = TRUE)
 
 class_matrix
 
-#NDVI < 0.2      = Very low vegetation cover
-#0.2 ≤ NDVI < 0.4 = Low vegetation cover
-#0.4 ≤ NDVI < 0.6 = Moderate vegetation cover
-#0.6 ≤ NDVI < 0.8 = High vegetation cover
-#NDVI ≥ 0.8       = Very high vegetation cover
 ndvi_2018_cl <- classify(ndvi_2018, class_matrix)
 ndvi_2019_cl <- classify(ndvi_2019, class_matrix)
 
@@ -261,7 +264,6 @@ col_ndvi <- c(
   "orange",
   "gold",
   "yellowgreen",
-  "green",
   "darkgreen"
 )
 
@@ -273,82 +275,42 @@ plot(
 
 plot(
   ndvi_2019_cl,
-  col = c(
-    "orange",
-    "gold",
-    "yellowgreen",
-    "green"), #color palette changed to have a   consistent classification
-  main = "NDVI Classification - 2019"
+  col = col_ndvi,
+main = "NDVI Classification - 2019"
 )
 
 ```
-<img width="536" height="330" alt="NDVI_classification_Rplot" src="https://github.com/user-attachments/assets/eeeb1957-3d22-4edc-b9ce-e7168797b430" />
+<img width="536" height="330" alt="NDVI_classification_Rplot" src="https://github.com/user-attachments/assets/528b835d-c716-44da-9638-685063931171" />
 
 # Pixels frequences and percentages calculation
 ```
+#Pixel frequencies
 freq_2018 <- freq(ndvi_2018_cl)
 freq_2019 <- freq(ndvi_2019_cl)
-#%
+
+#Percentages
 perc_2018 <- freq_2018$count * 100 / sum(freq_2018$count)
 perc_2019 <- freq_2019$count * 100 / sum(freq_2019$count)
-#Tabella
+
+#Summary table
 tab <- data.frame(
-  classi = c("Suolo nudo", "Vegetazione media", "Vegetazione sana"),
-  a2018 = round(perc_2018, 2),
-  a2019 = round(perc_2019, 2)
+  Class = c(
+    "Very low vegetation cover",
+    "Low vegetation cover",
+    "Moderate vegetation cover",
+    "High vegetation cover"
+  ),
+  NDVI_2018 = round(perc_2018, 2),
+  NDVI_2019 = round(perc_2019, 2)
 )
 print(tab)
 ```
+Class | NDVI_2018 | NDVI_2019
+------------ | ------------- | -------------
+Very low vegetation cover |  15.78  |   19.33
+Low vegetation cover |  25.02  |   36.99
+Moderate vegetation cover |   58.15   |  43.32
+High vegetation cover |     1.05    |  0.36
 
-
-class_dNDVI <- matrix(c(-Inf, -0.2, 1,
-                        -0.2,  0.2, 2,
-                        0.2,  Inf, 3),
-                      ncol = 3, byrow = TRUE)
-
-dNDVI_cl <- classify(dNDVI, class_dNDVI)
-
-plot(dNDVI_cl,
-     col = c("red", "khaki", "darkgreen"),
-     main = "Classi di variazione NDVI - Post-Vaia vs Pre-Vaia")
-
-# frequenze per classe
-freq_dNDVI <- freq(dNDVI_cl)
-
-# percentuale sul totale dei pixel VALIDI (non NA) - non su ncell(),
-# altrimenti sottostimi le percentuali come nel bug delle classi assolute
-freq_dNDVI$percentuale <- freq_dNDVI$count / sum(freq_dNDVI$count) * 100
-
-# risoluzione 10 m -> ogni pixel = 100 m^2 = 0.01 ha
-freq_dNDVI$ettari <- freq_dNDVI$count * 0.01
-
-tab_variazione <- data.frame(
-  Classe      = c("Perdita di vegetazione", "Stabile", "Guadagno di vegetazione"),
-  Percentuale = round(freq_dNDVI$percentuale, 2),
-  Ettari      = round(freq_dNDVI$ettari, 1)
-)
-print(tab_variazione)
- 
-# ---------------------------------------------------------------------------
-# GRAFICO DI CONFRONTO DELLE PERCENTUALI PER CLASSE (2018 vs 2019)
-# ---------------------------------------------------------------------------
-# reshape() trasforma "tab" da formato wide (una colonna per anno) a
-# formato long (una riga per ogni combinazione classe x anno), che e'
-# quello che ggplot si aspetta per raggruppare le barre per colore
-tab_long <- reshape(
-  tab,
-  varying   = c("a2018", "a2019"),
-  v.names   = "percentuale",
-  timevar   = "anno",
-  times     = c("2018", "2019"),
-  direction = "long"
-)
-
-ggplot(tab_long, aes(x = classi, y = percentuale, fill = anno)) +
-  geom_bar(stat = "identity", position = "dodge") +
-  scale_fill_manual(values = c("2018" = "forestgreen", "2019" = "firebrick")) +
-  labs(title = "Classes NDVI - Parco Paneveggio (pre vs post Vaia)",
-       y = "% area", x = NULL, fill = "Anno") +
-  theme_minimal()
 # Bibliography 
 Wang B, Li H, Xia W, Wang J, Cai C and Chen J (2026) Response of NDVI spatiotemporal variation to meteorological factors in arid areas. Front. Environ. Sci. 14:1856508. doi: 10.3389/fenvs.2026.1856508
