@@ -166,30 +166,27 @@ abline(v = 0, col = "darkgreen", lwd = 1.5)
 ```
 <img width="611" height="330" alt="dDVI_hist_Rplot" src="https://github.com/user-attachments/assets/77f7031b-9f67-4c84-8171-0a596eac827b" />
 
-
-# 1. Controllo distribuzione
-#quantile(dDVI, probs = seq(0, 1, 0.1), na.rm = TRUE)
-
-# 2. Calcolo ΔNDVI
+# ΔNDVI calculation
+```
 ndvi_2018 <- (B08_2018_crop - B04_2018_crop) /
   (B08_2018_crop + B04_2018_crop)
 
 ndvi_2019 <- (B08_2019_crop - B04_2019_crop) /
   (B08_2019_crop + B04_2019_crop)
 
-# 3. Maschera comune
+#common mask
 validi <- !is.na(ndvi_2018) & !is.na(ndvi_2019)
 
-# 4. Differenza
+#subtraction NDVI
 dNDVI <- ifel(
   validi,
   ndvi_2019 - ndvi_2018,
   NA
 )
 
-# 5. Visualizzazione
+#visualization
 par(mfrow = c(1, 3))
-breaks_ndvi <- seq(-1, 1, length.out = 6)
+breaks_ndvi <- seq(-1, 1, by = 0.2)
 col_ndvi <- viridis::viridis(100)
 
 plot(ndvi_2018,
@@ -206,15 +203,16 @@ plot(ndvi_2019,
      breaks = breaks_ndvi,
      col = col_ndvi)
 
-
-plot(
-  dNDVI,
+plot(dNDVI,
   main = "ΔNDVI - Post-Vaia vs Pre-Vaia",
   xlab = "Easting (m)",
   ylab = "Northing (m)",
   breaks = breaks_ndvi,
   col=viridis::inferno(100),
 )
+```
+<img width="567" height="330" alt="deltaNDVIRplot" src="https://github.com/user-attachments/assets/601df027-db5f-443e-87be-44eb4948109a" />
+
 
 # ============================================================
 # 14. ISTOGRAMMI NDVI
