@@ -211,7 +211,7 @@ plot(dNDVI,
   col=viridis::inferno(100),
 )
 ```
-![NDVIplots](https://github.com/user-attachments/assets/601df027-db5f-443e-87be-44eb4948109a)
+![NDVIplots](https://github.com/user-attachments/assets/6e7ee96f-868d-46e9-be02-d53063b95ea9)
 
 
 # ISTOGRAMMI NDVI
