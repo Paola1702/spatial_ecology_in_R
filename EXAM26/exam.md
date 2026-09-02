@@ -217,21 +217,29 @@ plot(dNDVI,
 # ISTOGRAMMI NDVI
 
 ```
-breaks_ndvi_h <- seq(-1, 1, length.out = 21)
+breaks_ndvi <- seq(-1, 1, by = 0.1)
 par(mfrow = c(1, 2))
 
 hist(
   ndvi_2018,
-  breaks = breaks_ndvi_h,
-  main = "NDVI PRE-STORM",
-  col = "green"
+  breaks = breaks_ndvi,
+  xlim = c(-1, 1),
+  main = "NDVI PRE-STORM 2018",
+  col = "lightgreen",
+  border = "white",
+  xlab = "NDVI",
+  ylab = "Pixel (n)"
 )
 
 hist(
   ndvi_2019,
-  breaks = breaks_ndvi_h,
-  main = "NDVI POST-STORM",
-  col = "blue"
+  breaks = breaks_ndvi,
+  xlim = c(-1, 1),
+  main = "NDVI POST-STORM 2019",
+  col = "lightblue",
+  border = "white",
+  xlab = "NDVI",
+  ylab = "Pixel (n)"
 )
 
 ```
