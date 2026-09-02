@@ -81,7 +81,7 @@ mask_scl <- function(x, scl) {
   scl_10m <- resample(scl, x, method = "near")
 
 #TRUE when the pixel is not in the codes written
-codici_da_escludere <- c(0, 1, 3, 8, 9, 10, 11)
+codici_da_escludere <- c(0, 1, 3, 7, 8, 9, 10, 11)
 valido <- !(scl_10m %in% codici_da_escludere)
   
   #all the non valid pixel will be substituted with NA
