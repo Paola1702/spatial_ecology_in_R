@@ -10,11 +10,8 @@
 
 library(terra) #for spatial data analysis with vector and raster data
 library(viridis) 
-library(imageRy)
-library(ggplot2) #graphs 
 
 setwd("C:/Users/17020/Documents/UNI Magistrale/spatial_ecology")
-
 
 # Selection of the Parco Paneveggio area from the shapefile
 parchi_tn <- vect("C:/Users/17020/Documents/UNI Magistrale/spatial_ecology/z307_p_pup.shp")   #directory of the shapefile
@@ -59,7 +56,7 @@ plot(B03_2019, main = "B3")
 plot(B04_2019, main = "B4")
 plot(B08_2019, main = "B8")
 plot(SCL_2019, main = "SCL")
-
+dev.off()
 # crop only the park area
 
 paneveggio_utm <- project(paneveggio, crs(B02_2018))
@@ -77,12 +74,12 @@ SCL_2019_crop <- mask(crop(SCL_2019, paneveggio_utm), paneveggio_utm)
 # SCL crop
 #The pixel without data and with snow and clouds will be erased to precisly calculate the vegetation indices.
 mask_scl <- function(x, scl) {
-#the SCL band is at 20m so an adaptation to 10m is needed
+  #the SCL band is at 20m so an adaptation to 10m is needed
   scl_10m <- resample(scl, x, method = "near")
-
-#TRUE when the pixel is not in the codes written
-codici_da_escludere <- c(0, 1, 3, 7, 8, 9, 10, 11)
-valido <- !(scl_10m %in% codici_da_escludere)
+  
+  #TRUE when the pixel is not in the codes written
+  codici_da_escludere <- c(0, 1, 3, 7, 8, 9, 10, 11)
+  valido <- !(scl_10m %in% codici_da_escludere)
   
   #all the non valid pixel will be substituted with NA
   mask(x, valido, maskvalues = FALSE)
@@ -99,7 +96,7 @@ B04_2019_crop <- mask_scl(B04_2019_crop, SCL_2019_crop)
 B08_2019_crop <- mask_scl(B08_2019_crop, SCL_2019_crop)
 
 
-## RGB visualization of the cropped images 
+# RGB visualization of the cropped images 
 
 layout(
   matrix(c(1, 0, 2), nrow = 1),
@@ -123,7 +120,7 @@ dev.off()
 
 
 # Calcolo DVI (Difference Vegetation Index) and dDVI
-This index is calculated with the difference between the reflectance values of the **near-infrared(NIR)** and **red spectral** bands. It is a simple index and it tells us about the density and health of the vegetation because when the plants are healthy they reflect more NIR light while absorbing red light.
+#This index is calculated with the difference between the reflectance values of the **near-infrared(NIR)** and **red spectral** bands. It is a simple index and it tells us about the density and health of the vegetation because when the plants are healthy they reflect more NIR light while absorbing red light.
 
 dvi_2018 = B08_2018_crop - B04_2018_crop # Calculation DVI pre-Vaia
 dvi_2019 = B08_2019_crop - B04_2019_crop # Calculation DVI post-Vaia
@@ -135,11 +132,11 @@ dDVI <- ifel(
   dvi_2019 - dvi_2018,
   NA
 )
-dDVI_real <- dDVI / 10000
-plot(dDVI_real,col=viridis::viridis(100), main="ΔDVI")
+
+plot(dDVI,col=viridis::viridis(100), main="ΔDVI")
 
 hist(
-  x,
+  dDVI,
   breaks = 100,
   main = "Distribuzione di ΔDVI (2018-2019)",
   col = "palegreen",
@@ -148,7 +145,7 @@ hist(
 
 abline(v = 0, col = "darkgreen", lwd = 1.5)
 
-# ΔNDVI calculation
+# NDVI calculation
 
 ndvi_2018 <- (B08_2018_crop - B04_2018_crop) /
   (B08_2018_crop + B04_2018_crop)
@@ -186,42 +183,41 @@ plot(ndvi_2019,
      col = col_ndvi)
 
 plot(dNDVI,
-  main = "ΔNDVI - Post-Vaia vs Pre-Vaia",
-  xlab = "Easting (m)",
-  ylab = "Northing (m)",
-  breaks = breaks_ndvi,
-  col=viridis::inferno(100),
+     main = "ΔNDVI - Post-Vaia vs Pre-Vaia",
+     xlab = "Easting (m)",
+     ylab = "Northing (m)",
+     breaks = breaks_ndvi <- seq(-1, 1.5, by = 0.2), #minmax(dNDVI)
+     col=viridis::inferno(100),
 )
 
 # ISTOGRAMMI NDVI
 
-breaks_ndvi_h <- seq(-1, 1, length.out = 21)
+breaks_ndvi <- seq(-1, 1, by = 0.1)
+
 par(mfrow = c(1, 2))
 
 hist(
   ndvi_2018,
-  breaks = breaks_ndvi_h,
-  main = "NDVI PRE-STORM",
-  col = "green"
+  breaks = breaks_ndvi,
+  xlim = c(-1, 1),
+  main = "NDVI PRE-STORM 2018",
+  col = "lightgreen",
+  border = "white",
+  xlab = "NDVI",
+  ylab = "Pixel (n)"
 )
 
 hist(
   ndvi_2019,
-  breaks = breaks_ndvi_h,
-  main = "NDVI POST-STORM",
-  col = "blue"
+  breaks = breaks_ndvi,
+  xlim = c(-1, 1),
+  main = "NDVI POST-STORM 2019",
+  col = "lightblue",
+  border = "white",
+  xlab = "NDVI",
+  ylab = "Pixel (n)"
 )
 
-
-<img width="580" height="330" alt="NDVI_hist_Rplot" src="https://github.com/user-attachments/assets/ade26475-a4e1-4f71-9c2c-1262de5352f5" />
-
-# dNDVI vegetation cover classification based on literature 
-* NDVI < 0.2      = Very low vegetation cover
-* 0.2 ≤ NDVI < 0.4 = Low vegetation cover
-* 0.4 ≤ NDVI < 0.6 = Moderate vegetation cover
-* 0.6 ≤ NDVI < 0.8 = High vegetation cover
-* NDVI ≥ 0.8       = Very high vegetation cover
-> Considering that in the 2019 there are no pixel in the 5 class and in the 2018 image there are only 2 I have decided to not consider it to avoid complication in the calculations and in the graphs representation. 
 
 # NDVI classification
 class_matrix <- matrix(c(
@@ -233,6 +229,11 @@ class_matrix <- matrix(c(
 
 class_matrix
 
+#NDVI < 0.2      = Very low vegetation cover
+#0.2 ≤ NDVI < 0.4 = Low vegetation cover
+#0.4 ≤ NDVI < 0.6 = Moderate vegetation cover
+#0.6 ≤ NDVI < 0.8 = High vegetation cover
+#NDVI ≥ 0.8       = Very high vegetation cover
 ndvi_2018_cl <- classify(ndvi_2018, class_matrix)
 ndvi_2019_cl <- classify(ndvi_2019, class_matrix)
 
@@ -254,19 +255,24 @@ plot(
 plot(
   ndvi_2019_cl,
   col = col_ndvi,
-main = "NDVI Classification - 2019"
+  main = "NDVI Classification - 2019"
 )
 
-# Pixels frequences and percentages calculation
-#Pixel frequencies
+
+
+
+# Pixel frequencies
+
 freq_2018 <- freq(ndvi_2018_cl)
 freq_2019 <- freq(ndvi_2019_cl)
 
-#Percentages
+# Percentages
+
 perc_2018 <- freq_2018$count * 100 / sum(freq_2018$count)
 perc_2019 <- freq_2019$count * 100 / sum(freq_2019$count)
 
-#Summary table
+# Summary table
+
 tab <- data.frame(
   Class = c(
     "Very low vegetation cover",
@@ -277,6 +283,7 @@ tab <- data.frame(
   NDVI_2018 = round(perc_2018, 2),
   NDVI_2019 = round(perc_2019, 2)
 )
+
 print(tab)
 
 
