@@ -1,6 +1,6 @@
 # IMPACT OF THE VAIA STORM (30 OCTOBER 2018) ON THE VEGETATION OF THE PARCO NATURALE PANEVEGGIO - PALE DI SAN MARTINO :zap:
 ## Analysis of the Sentinel-2 images (pre-Vaia 2018, post-vaia same season 2019)
-Between 27th and 30th October 2018, Italy was affected by the effects of a deep depression known as "Vaia", with powerful southerly winds with peak speeds exceeding 200 km/h hitting the Alpine regions, particularly in the north-eastern areas.
+Between 27th and 30th October 2018, Italy was affected by the effects of a deep depression known as "Vaia", with powerful southerly winds with peak speeds exceeding 200 km/h hitting the Alpine regions, particularly in the north-eastern areas. The most affected regions were Trentino Alto Adige and Veneto, followed by Lombardia, Friuli Venezia Giulia and, limitedly, Piedmont and Valle d’Aosta.The storm caused extensive damage to forests, infrastructure, and landscapes across the affected areas. This study focuses on the protected area of Paneveggio–Pale di San Martino Natural Park, where the forest was significantly affected by Storm Vaia.
 
 ## LIBRARY AND WORKING DIRECTORY :books:
 ```
@@ -319,5 +319,8 @@ Low vegetation cover |  25.02  |   36.99
 Moderate vegetation cover |   58.15   |  43.32
 High vegetation cover |     1.05    |  0.36
 
-# Bibliography 
-Wang B, Li H, Xia W, Wang J, Cai C and Chen J (2026) Response of NDVI spatiotemporal variation to meteorological factors in arid areas. Front. Environ. Sci. 14:1856508. doi: 10.3389/fenvs.2026.1856508
+# Bibliography and sitography
+* Wang B, Li H, Xia W, Wang J, Cai C and Chen J (2026) Response of NDVI spatiotemporal variation to meteorological factors in arid areas. Front. Environ. Sci. 14:1856508. doi: 10.3389/fenvs.2026.1856508
+* https://www.masaf.gov.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/18158
+* https://siat.provincia.tn.it/geonetwork/srv/ita/catalog.search#/search?facet.q=type%2Fdataset&resultType=details&sortBy=relevance&fast=index&_content_type=json&from=1&to=20&any=z307_p_pup
+
