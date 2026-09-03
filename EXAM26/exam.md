@@ -1,12 +1,11 @@
-# IMPACT OF THE VAIA STORM (30 OCTOBER 2018) ON THE VEGETATION OF THE PARCO NATURALE PANEVEGGIO - PALE DI SAN MARTINO
+# IMPACT OF THE VAIA STORM (30 OCTOBER 2018) ON THE VEGETATION OF THE PARCO NATURALE PANEVEGGIO - PALE DI SAN MARTINO :zap:
 ## Analysis of the Sentinel-2 images (pre-Vaia 2018, post-vaia same season 2019)
+Between 27th and 30th October 2018, Italy was affected by the effects of a deep depression known as "Vaia", with powerful southerly winds with peak speeds exceeding 200 km/h hitting the Alpine regions, particularly in the north-eastern areas.
 
-## LIBRARY AND WORKING DIRECTORY
+## LIBRARY AND WORKING DIRECTORY :books:
 ```
 library(terra) #for spatial data analysis with vector and raster data
 library(viridis) 
-library(imageRy)
-library(ggplot2) #graphs 
 
 setwd("C:/Users/17020/Documents/UNI Magistrale/spatial_ecology")
 ```
@@ -136,7 +135,7 @@ dev.off()
 ```
 ![RGB](https://github.com/user-attachments/assets/7181f615-302b-4511-b696-609afce1d726)
 
-# Calcolo DVI (Difference Vegetation Index) and dDVI
+# Calcolo DVI (Difference Vegetation Index) and dDVI 
 This index is calculated with the difference between the reflectance values of the **near-infrared(NIR)** and **red spectral** bands. It is a simple index and it tells us about the density and health of the vegetation because when the plants are healthy they reflect more NIR light while absorbing red light.
 ```
 dvi_2018 = B08_2018_crop - B04_2018_crop # Calculation DVI pre-Vaia
@@ -214,7 +213,7 @@ plot(dNDVI,
 ![NDVIplots](https://github.com/user-attachments/assets/6e7ee96f-868d-46e9-be02-d53063b95ea9)
 
 
-# ISTOGRAMMI NDVI
+# ISTOGRAMMI NDVI :bar_chart:
 
 ```
 breaks_ndvi <- seq(-1, 1, by = 0.1)
