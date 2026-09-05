@@ -140,8 +140,8 @@ plotRGB(c(B04_2019_crop, B03_2019_crop, B02_2019_crop),
         stretch = "lin",
         main = "Sentinel-2 RGB - Post-Vaia (16/09/2019)",
         axes=TRUE)
-dev.off()
 ```
+
 ![RGB](https://github.com/user-attachments/assets/7181f615-302b-4511-b696-609afce1d726)
 *Figure 4. RGB maps of Paneveggio-Pale di San Martino Natural Park*
 
@@ -164,6 +164,8 @@ plot(dDVI_real,col=viridis::viridis(100), main="ΔDVI")
 ```
 
 ![deltaDVI](https://github.com/user-attachments/assets/cbaa81d7-2196-433c-ba30-f3847021429c)
+*Figure 5. Spatial distribution of ΔDVI between 2018 (pre-Vaia) and 2019 (post-Vaia). Negative ΔDVI values indicate a reduction in the vegetation signal between the two dates and can therefore highlight areas potentially affected by the storm. Positive or near-zero values indicate areas where the vegetation signal remained stable or increased.*
+
 ```
 hist(
   dDVI,
@@ -176,7 +178,8 @@ hist(
 abline(v = 0, col = "darkgreen", lwd = 1.5)
 ```
 <img width="611" height="330" alt="dDVI_hist_Rplot" src="https://github.com/user-attachments/assets/77f7031b-9f67-4c84-8171-0a596eac827b" />
-*Figure 5. Spatial distribution of ΔDVI between 2018 (pre-Vaia) and 2019 (post-Vaia).*
+
+*Figure 6. Histogram of ΔDVI values. The dark green line indicates the threshold separating negative and positive ΔDVI values.*
 
 # ΔNDVI calculation
 ```
@@ -327,10 +330,10 @@ print(tab)
 ```
 Class | NDVI_2018 | NDVI_2019
 ------------ | ------------- | -------------
-Very low vegetation cover |  15.78  |   19.33
-Low vegetation cover |  25.02  |   36.99
-Moderate vegetation cover |   58.15   |  43.32
-High vegetation cover |     1.05    |  0.36
+Very low vegetation cover |  15.78 %  |   19.33 %
+Low vegetation cover |  25.02 %  |   36.99 %
+Moderate vegetation cover |   58.15 %   |  43.32 %
+High vegetation cover |     1.05 %    |  0.36 %
 
 # Bibliography and sitography
 * Wang B, Li H, Xia W, Wang J, Cai C and Chen J (2026) Response of NDVI spatiotemporal variation to meteorological factors in arid areas. Front. Environ. Sci. 14:1856508. doi: 10.3389/fenvs.2026.1856508
