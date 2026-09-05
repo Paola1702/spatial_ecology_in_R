@@ -15,7 +15,7 @@ setwd("C:/Users/17020/Documents/UNI Magistrale/spatial_ecology")
 parchi_tn <- vect("C:/Users/17020/Documents/UNI Magistrale/spatial_ecology/z307_p_pup.shp")   #directory of the shapefile
 names(parchi_tn) # check on the different fields in the file
 head(as.data.frame(parchi_tn))
-paneveggio <- parchi_tn[grepl("PANEVEGGIO", parchi_tn$descr, ignore.case = TRUE), ] #recall of the area of the Paneveggio area
+paneveggio <- parchi_tn[grepl("PANEVEGGIO", parchi_tn$descr), ] #recall of the area of the Paneveggio area
 
 plot(paneveggio, main = "Parco Naturale Paneveggio - Pale di San Martino") #plot of the area boundaries
 ```
