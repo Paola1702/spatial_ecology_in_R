@@ -1,4 +1,4 @@
-# IMPACT OF THE VAIA STORM (30 OCTOBER 2018) ON THE VEGETATION OF THE PARCO NATURALE PANEVEGGIO - PALE DI SAN MARTINO :zap:
+# IMPACT OF THE VAIA STORM (30 OCTOBER 2018) ON THE VEGETATION OF THE PANEVEGGIO - PALE DI SAN MARTINO NATURAL PARK :zap:
 ## Analysis of the Sentinel-2 images (pre-Vaia 2018, post-vaia same season 2019)
 Between 27th and 30th October 2018, Italy was affected by the effects of a deep depression known as "Vaia", with powerful southerly winds with peak speeds exceeding 200 km/h hitting the Alpine regions, particularly in the north-eastern areas. The most affected regions were Trentino Alto Adige and Veneto, followed by Lombardia, Friuli Venezia Giulia and, limitedly, Piedmont and Valle d’Aosta.The storm caused extensive damage to forests, infrastructure, and landscapes across the affected areas. This study focuses on the protected area of Paneveggio–Pale di San Martino Natural Park, where the forest was significantly affected by Storm Vaia.
 
@@ -20,6 +20,7 @@ paneveggio <- parchi_tn[grepl("PANEVEGGIO", parchi_tn$descr), ] #recall of the a
 plot(paneveggio, main = "Parco Naturale Paneveggio - Pale di San Martino") #plot of the area boundaries
 ```
 <img width="458" height="330" alt="paneveggioboundaries_Rplot" src="https://github.com/user-attachments/assets/bf639fa9-7326-4cdf-8df7-b69228ca1a12" />
+*Paneveggio–Pale di San Martino Natural Park boundaries map*
 
 ## Upload of the raster files of the bands needed from the pre Vaia Sentinel-2 pictures
 ```
