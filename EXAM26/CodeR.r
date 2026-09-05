@@ -221,7 +221,6 @@ hist(
   ylab = "Pixel (n)"
 )
 
-
 # NDVI classification
 class_matrix <- matrix(c(
   -Inf, 0.2, 1,
@@ -232,11 +231,6 @@ class_matrix <- matrix(c(
 
 class_matrix
 
-#NDVI < 0.2      = Very low vegetation cover
-#0.2 ≤ NDVI < 0.4 = Low vegetation cover
-#0.4 ≤ NDVI < 0.6 = Moderate vegetation cover
-#0.6 ≤ NDVI < 0.8 = High vegetation cover
-#NDVI ≥ 0.8       = Very high vegetation cover
 ndvi_2018_cl <- classify(ndvi_2018, class_matrix)
 ndvi_2019_cl <- classify(ndvi_2019, class_matrix)
 
@@ -258,11 +252,8 @@ plot(
 plot(
   ndvi_2019_cl,
   col = col_ndvi,
-  main = "NDVI Classification - 2019"
+main = "NDVI Classification - 2019"
 )
-
-
-
 
 # Pixel frequencies
 
