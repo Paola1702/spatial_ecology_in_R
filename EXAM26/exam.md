@@ -19,7 +19,7 @@ paneveggio <- parchi_tn[grepl("PANEVEGGIO", parchi_tn$descr), ] #recall of the a
 
 plot(paneveggio, main = "Parco Naturale Paneveggio - Pale di San Martino") #plot of the area boundaries
 ```
-<img width="458" height="330" alt="paneveggioboundaries_Rplot" src="https://github.com/user-attachments/assets/bf639fa9-7326-4cdf-8df7-b69228ca1a12" />
+![parkboundaries](https://github.com/user-attachments/assets/bf639fa9-7326-4cdf-8df7-b69228ca1a12)
 *Paneveggio–Pale di San Martino Natural Park boundaries map*
 
 ## Upload of the raster files of the bands needed from the pre Vaia Sentinel-2 pictures
