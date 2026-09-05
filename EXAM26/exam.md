@@ -338,7 +338,10 @@ Class | NDVI_2018 | NDVI_2019
 Very low vegetation cover |  15.78 %  |   19.33 %
 Low vegetation cover |  25.02 %  |   36.99 %
 Moderate vegetation cover |   58.15 %   |  43.32 %
-High vegetation cover |     1.05 %    |  0.36 %
+High vegetation cover |  1.05 %   |  0.36 %
+
+# Conclusion
+The changes observed in both DVI and NDVI, together with the NDVI classification, indicate a shift from higher to lower vegetation conditions after the storm. In particular, the proportion of pixels classified as moderate vegetation cover decreased from 58.15% in 2018 to 43.32% in 2019, while low vegetation cover increased from 25.02% to 36.99% and very low vegetation cover increased from 15.78% to 19.33%. High vegetation cover also decreased, from 1.05% to only 0.36%. These changes suggest a substantial disturbance of vegetation, consistent with the severe impacts of the Vaia storm on forested areas.
 
 # Bibliography and sitography
 * Wang B, Li H, Xia W, Wang J, Cai C and Chen J (2026) Response of NDVI spatiotemporal variation to meteorological factors in arid areas. Front. Environ. Sci. 14:1856508. doi: 10.3389/fenvs.2026.1856508
