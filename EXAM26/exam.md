@@ -145,7 +145,8 @@ plotRGB(c(B04_2019_crop, B03_2019_crop, B02_2019_crop),
 ![RGB](https://github.com/user-attachments/assets/7181f615-302b-4511-b696-609afce1d726)
 *Figure 4. RGB maps of Paneveggio-Pale di San Martino Natural Park*
 
-# Calcolo DVI (Difference Vegetation Index) and dDVI 
+# Calculation of DVI (Difference Vegetation Index) and dDVI 
+
 This index is calculated as the difference between the reflectance values of the **near-infrared(NIR)** and **red spectral** bands. It is a simple index, and it tells us about the density and health of the vegetation: when the plants are healthy, they reflect more NIR light while absorbing red light.
 
 ```
@@ -181,7 +182,9 @@ abline(v = 0, col = "darkgreen", lwd = 1.5)
 
 *Figure 6. Histogram of ΔDVI values. The dark green line indicates the threshold separating negative and positive ΔDVI values.*
 
-# ΔNDVI calculation
+# NDVI and ΔNDVI calculation
+ΔNDVI was calculated to quantify the spatial variation in vegetation conditions between the pre-Vaia and post-Vaia images. It is obtained by the difference between post-storm NDVI and pre-storm NDVI (NDVI₍₂₀₁₉₎ − NDVI₍₂₀₁₈₎).
+
 ```
 ndvi_2018 <- (B08_2018_crop - B04_2018_crop) /
   (B08_2018_crop + B04_2018_crop)
@@ -227,7 +230,7 @@ plot(dNDVI,
 )
 ```
 ![NDVIplots](https://github.com/user-attachments/assets/6e7ee96f-868d-46e9-be02-d53063b95ea9)
-
+*Figure 7. NDVI plots, from left to right: the first one represents the NDVI of 2018, the second one represents the NDVI of 2019, the last one is the plot of the difference between 2019 NDVI and 2018 NDVI. Negative values indicate a decrease in the vegetation signal between the two dates and can therefore highlight areas potentially affected by forest damage caused by the Vaia storm. Values close to zero indicate limited changes, whereas positive values indicate an increase in the vegetation signal.*
 
 # ISTOGRAMMI NDVI :bar_chart:
 
@@ -258,7 +261,8 @@ hist(
 )
 
 ```
-<img width="580" height="330" alt="NDVI_hist_Rplot" src="https://github.com/user-attachments/assets/ade26475-a4e1-4f71-9c2c-1262de5352f5" />
+![histograms](https://github.com/user-attachments/assets/ade26475-a4e1-4f71-9c2c-1262de5352f5)
+*Figure 8. Histograms of the NDVI values (2018 and 2019). There is a slight shift in the number of pixels under the 0.5 value.*
 
 # dNDVI vegetation cover classification based on literature 
 * NDVI < 0.2      = Very low vegetation cover
@@ -303,7 +307,8 @@ main = "NDVI Classification - 2019"
 )
 
 ```
-<img width="536" height="330" alt="NDVI_classification_Rplot" src="https://github.com/user-attachments/assets/528b835d-c716-44da-9638-685063931171" />
+![NDVI classification](https://github.com/user-attachments/assets/528b835d-c716-44da-9638-685063931171)
+*Figure 9. Graphic representation of the NDVI classification described above, comparing pre-storm 2018 and post-storm 2019. Classification: 1) NDVI < 0.2 = Very low vegetation cover, 2) 0.2 ≤ NDVI < 0.4 = Low vegetation cover, 3) 0.4 ≤ NDVI < 0.6 = Moderate vegetation cover, 4) 0.6 ≤ NDVI < 0.8 = High vegetation cover*
 
 # Pixels frequences and percentages calculation
 ```
