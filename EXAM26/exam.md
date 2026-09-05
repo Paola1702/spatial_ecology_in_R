@@ -20,7 +20,8 @@ paneveggio <- parchi_tn[grepl("PANEVEGGIO", parchi_tn$descr), ] #recall of the a
 plot(paneveggio, main = "Parco Naturale Paneveggio - Pale di San Martino") #plot of the area boundaries
 ```
 ![parkboundaries](https://github.com/user-attachments/assets/bf639fa9-7326-4cdf-8df7-b69228ca1a12)
-*Paneveggio–Pale di San Martino Natural Park boundaries map*
+
+*Figure 1. Paneveggio–Pale di San Martino Natural Park boundaries map*
 
 ## Upload of the raster files of the bands needed from the pre Vaia Sentinel-2 pictures
 ```
@@ -51,6 +52,8 @@ plot(SCL_2018, main = "SCL")
 dev.off()
 ```
 ![bands2018](https://github.com/user-attachments/assets/1dcd3ea7-5301-47e3-98f5-4a854b11122e)
+*Figure 2. Sentinel-2 images of the selected study area showing the B02 (blue), B03 (green), B04 (red), B08 (near-infrared) bands and the Scene Classification Layer (SCL) for 2018*
+
 ## plot the maps from 2019 satellites pictures 
 ```
 par(mfrow = c(2, 3))
@@ -61,6 +64,8 @@ plot(B08_2019, main = "B8")
 plot(SCL_2019, main = "SCL")
 ```
 ![bands2019](https://github.com/user-attachments/assets/ee4623ed-d385-4d3f-bb2b-b604816b6230)
+
+*Figure 3. Sentinel-2 images of the selected study area showing the B02 (blue), B03 (green), B04 (red), B08 (near-infrared) bands and the Scene Classification Layer (SCL) for 2019*
 
 ## crop only the park area
 ```
@@ -81,7 +86,7 @@ B08_2019_crop <- mask(crop(B08_2019, paneveggio_utm), paneveggio_utm)
 SCL_2019_crop <- mask(crop(SCL_2019, paneveggio_utm), paneveggio_utm)
 ```
 ## SCL crop
-The pixel without data and with snow and clouds will be erased to precisly calculate the vegetation indices. The codes are from the [Copernicus website](https://sentiwiki.copernicus.eu/web/s2-processing)
+Pixels without data and those with snow and clouds will be erased to calculate the vegetation indices more precisely. The codes are from the [Copernicus website](https://sentiwiki.copernicus.eu/web/s2-processing)
 
 * 0- WITHOUT DATA
 * 1-SATURATED_DEFEC
@@ -116,7 +121,7 @@ B04_2019_crop <- mask_scl(B04_2019_crop, SCL_2019_crop)
 B08_2019_crop <- mask_scl(B08_2019_crop, SCL_2019_crop)
 ```
 
-## RGB visualization of the cropped images 
+## RGB visualisation of the cropped images 
 ```
 layout(
   matrix(c(1, 0, 2), nrow = 1),
@@ -138,14 +143,16 @@ plotRGB(c(B04_2019_crop, B03_2019_crop, B02_2019_crop),
 dev.off()
 ```
 ![RGB](https://github.com/user-attachments/assets/7181f615-302b-4511-b696-609afce1d726)
+*Figure 4. RGB maps of Paneveggio-Pale di San Martino Natural Park*
 
 # Calcolo DVI (Difference Vegetation Index) and dDVI 
-This index is calculated with the difference between the reflectance values of the **near-infrared(NIR)** and **red spectral** bands. It is a simple index and it tells us about the density and health of the vegetation because when the plants are healthy they reflect more NIR light while absorbing red light.
+This index is calculated as the difference between the reflectance values of the **near-infrared(NIR)** and **red spectral** bands. It is a simple index, and it tells us about the density and health of the vegetation: when the plants are healthy, they reflect more NIR light while absorbing red light.
+
 ```
 dvi_2018 = B08_2018_crop - B04_2018_crop # Calculation DVI pre-Vaia
 dvi_2019 = B08_2019_crop - B04_2019_crop # Calculation DVI post-Vaia
 
-# Pixel valid in both the dates
+# Pixels valid in both the dates
 validi <- !is.na(dvi_2018) & !is.na(dvi_2019)
 dDVI <- ifel(
   validi,
@@ -155,6 +162,7 @@ dDVI <- ifel(
 dDVI_real <- dDVI / 10000
 plot(dDVI_real,col=viridis::viridis(100), main="ΔDVI")
 ```
+
 ![deltaDVI](https://github.com/user-attachments/assets/cbaa81d7-2196-433c-ba30-f3847021429c)
 ```
 hist(
@@ -168,6 +176,7 @@ hist(
 abline(v = 0, col = "darkgreen", lwd = 1.5)
 ```
 <img width="611" height="330" alt="dDVI_hist_Rplot" src="https://github.com/user-attachments/assets/77f7031b-9f67-4c84-8171-0a596eac827b" />
+*Figure 5. Spatial distribution of ΔDVI between 2018 (pre-Vaia) and 2019 (post-Vaia).*
 
 # ΔNDVI calculation
 ```
