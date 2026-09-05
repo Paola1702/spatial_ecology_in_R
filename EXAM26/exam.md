@@ -154,7 +154,7 @@ plot(dDVI_real,col=viridis::viridis(100), main="ΔDVI")
 ![deltaDVI](https://github.com/user-attachments/assets/cbaa81d7-2196-433c-ba30-f3847021429c)
 ```
 hist(
-  x,
+  dDVI,
   breaks = 100,
   main = "Distribuzione di ΔDVI (2018-2019)",
   col = "palegreen",
