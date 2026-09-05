@@ -63,7 +63,10 @@ plot(SCL_2019, main = "SCL")
 
 ## crop only the park area
 ```
+crs(B02_2018)
+crs(paneveggio)
 paneveggio_utm <- project(paneveggio, crs(B02_2018))
+crs(paneveggio_utm)
 B02_2018_crop <- mask(crop(B02_2018, paneveggio_utm), paneveggio_utm)
 B03_2018_crop <- mask(crop(B03_2018, paneveggio_utm), paneveggio_utm)
 B04_2018_crop <- mask(crop(B04_2018, paneveggio_utm), paneveggio_utm)
