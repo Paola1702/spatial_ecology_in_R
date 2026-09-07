@@ -62,6 +62,7 @@ plot(B03_2019, main = "B3")
 plot(B04_2019, main = "B4")
 plot(B08_2019, main = "B8")
 plot(SCL_2019, main = "SCL")
+dev.off()
 ```
 ![bands2019](https://github.com/user-attachments/assets/ee4623ed-d385-4d3f-bb2b-b604816b6230)
 
@@ -73,6 +74,7 @@ crs(B02_2018)
 crs(paneveggio)
 paneveggio_utm <- project(paneveggio, crs(B02_2018))
 crs(paneveggio_utm)
+
 B02_2018_crop <- mask(crop(B02_2018, paneveggio_utm), paneveggio_utm)
 B03_2018_crop <- mask(crop(B03_2018, paneveggio_utm), paneveggio_utm)
 B04_2018_crop <- mask(crop(B04_2018, paneveggio_utm), paneveggio_utm)
@@ -222,11 +224,11 @@ plot(ndvi_2019,
      col = col_ndvi)
 
 plot(dNDVI,
-  main = "ΔNDVI - Post-Vaia vs Pre-Vaia",
-  xlab = "Easting (m)",
-  ylab = "Northing (m)",
-  breaks = breaks_ndvi,
-  col=viridis::inferno(100),
+     main = "ΔNDVI - Post-Vaia vs Pre-Vaia",
+     xlab = "Easting (m)",
+     ylab = "Northing (m)",
+     breaks = breaks_ndvi <- seq(-1, 1.5, by = 0.2), #minmax(dNDVI)
+     col=viridis::inferno(100),
 )
 ```
 ![NDVIplots](https://github.com/user-attachments/assets/6e7ee96f-868d-46e9-be02-d53063b95ea9)
