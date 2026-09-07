@@ -1,3 +1,6 @@
+#### Paola Marletto
+##### matricola: 0001167215
+
 # IMPACT OF THE VAIA STORM (30 OCTOBER 2018) ON THE VEGETATION OF THE PANEVEGGIO - PALE DI SAN MARTINO NATURAL PARK :zap:
 ## Analysis of the Sentinel-2 images (pre-Vaia 2018, post-vaia same season 2019)
 Between 27th and 30th October 2018, Italy was affected by the effects of a deep depression known as "Vaia", with powerful southerly winds with peak speeds exceeding 200 km/h hitting the Alpine regions, particularly in the north-eastern areas. The most affected regions were Trentino Alto Adige and Veneto, followed by Lombardia, Friuli Venezia Giulia and, limitedly, Piedmont and Valle d’Aosta.The storm caused extensive damage to forests, infrastructure, and landscapes across the affected areas. This study focuses on the protected area of Paneveggio–Pale di San Martino Natural Park, where the forest was significantly affected by Storm Vaia.
