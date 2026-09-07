@@ -71,7 +71,7 @@ dev.off()
 
 *Figure 3. Sentinel-2 images of the selected study area showing the B02 (blue), B03 (green), B04 (red), B08 (near-infrared) bands and the Scene Classification Layer (SCL) for 2019*
 
-## crop only the park area
+## Crop of the park area
 ```
 crs(B02_2018)
 crs(paneveggio)
@@ -126,7 +126,7 @@ B04_2019_crop <- mask_scl(B04_2019_crop, SCL_2019_crop)
 B08_2019_crop <- mask_scl(B08_2019_crop, SCL_2019_crop)
 ```
 
-## RGB visualisation of the cropped images 
+## RGB visualisation of the cropped maps 
 ```
 layout(
   matrix(c(1, 0, 2), nrow = 1),
@@ -150,7 +150,7 @@ plotRGB(c(B04_2019_crop, B03_2019_crop, B02_2019_crop),
 ![RGB](https://github.com/user-attachments/assets/7181f615-302b-4511-b696-609afce1d726)
 *Figure 4. RGB maps of Paneveggio-Pale di San Martino Natural Park*
 
-# Calculation of DVI (Difference Vegetation Index) and dDVI 
+# Calculation of DVI (Difference Vegetation Index) and ΔDVI 
 
 This index is calculated as the difference between the reflectance values of the **near-infrared(NIR)** and **red spectral** bands. It is an absolute index, and it tells us about the density and health of the vegetation: when the plants are healthy, they reflect more NIR light while absorbing red light.
 
