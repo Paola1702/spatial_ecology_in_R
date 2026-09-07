@@ -152,7 +152,7 @@ plotRGB(c(B04_2019_crop, B03_2019_crop, B02_2019_crop),
 
 # Calculation of DVI (Difference Vegetation Index) and dDVI 
 
-This index is calculated as the difference between the reflectance values of the **near-infrared(NIR)** and **red spectral** bands. It is a simple index, and it tells us about the density and health of the vegetation: when the plants are healthy, they reflect more NIR light while absorbing red light.
+This index is calculated as the difference between the reflectance values of the **near-infrared(NIR)** and **red spectral** bands. It is an absolute index, and it tells us about the density and health of the vegetation: when the plants are healthy, they reflect more NIR light while absorbing red light.
 
 ```
 dvi_2018 = B08_2018_crop - B04_2018_crop # Calculation DVI pre-Vaia
