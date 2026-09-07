@@ -133,8 +133,8 @@ dDVI <- ifel(
   dvi_2019 - dvi_2018,
   NA
 )
-
-plot(dDVI,col=viridis::viridis(100), main="ΔDVI")
+dDVI_real <- dDVI / 10000
+plot(dDVI_real,col=viridis::viridis(100), main="ΔDVI")
 
 hist(
   dDVI,
